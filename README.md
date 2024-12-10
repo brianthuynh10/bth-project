@@ -64,18 +64,50 @@ In order to make the data useable, here are the following steps I completed to c
    - This purpose of this transformation will be useful for my investigation. To do this, we first assume that a person is on 2,000 calorie diet, we take the Perent Daily Value of the recipe multiply it by 50 (the suggested ammount of protein for a 2,000 calorie diet) the divide it by 100 to express the current percentage as a fraction. 
   
 
+### Univariate Analysis
 
-  
+In this analysis, I examined the distribution of the protein (in grams) in the recipes. In the plot below, one could determine that the distribution is skewed to the right. This suggests that most recipes on Food.com aren't extremely high in protein. WE could see that as we move more and more to the rigt the prescence of greater protein values is lessens
 
-
-
-
-
+px
 
 
 
+### Bivariate Analysis
 
 
+
+
+### Interesting Aggregates
+
+
+
+
+## Assessment of Missingness
+
+
+### NMAR Analysis 
+
+
+### Missingness Dependency
+
+
+
+## Hypothesis Testing 
+
+
+#### Conclusion of the Permutation Test
+
+
+## Framing Prediction Problem
+
+
+## Baseline Model 
+
+
+## Final Model
+
+
+## Fairness Analysis
 
 
 
