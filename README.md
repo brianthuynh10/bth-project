@@ -119,7 +119,7 @@ Furthering the investigation of missingness, I moved on to examine missingness o
 - **Test Statistic** Absolue Difference of Means (Avg Amount of Calories with  `rating` missing - Avg Amount of Calories with  `rating` not missing)
 
 <iframe
-src='Graphs/missingness_test_ind.html'
+src='Graphs/missingness_test_dependent.html'
 width='800'
 height='600'
 frameborder="0"
@@ -131,17 +131,21 @@ Again, I'm going perform the same test to as above, except this time I will be t
 - **Test Statistic** Absolue Difference of Means (Avg Amount of Minutes with  `rating` missing - Avg Amount of Minutes with  `rating` not missing)
 
 <iframe
-src='Graphs/missingness_test_dep.html'
+src='Graphs/missingness_test_independent.html'
 width='800'
 height='600'
 frameborder="0"
 ></iframe>
 
 
-## Hypothesis Testing 
+## Permutation Testing 
 
-
-
+<iframe
+src='Graphs/hypo_test.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
 
 
 
