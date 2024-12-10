@@ -68,7 +68,12 @@ In order to make the data useable, here are the following steps I completed to c
 
 In this analysis, I examined the distribution of the protein (in grams) in the recipes. In the plot below, one could determine that the distribution is skewed to the right. This suggests that most recipes on Food.com aren't extremely high in protein. WE could see that as we move more and more to the rigt the prescence of greater protein values is lessens
 
-px
+<iframe
+src='Graphs/protein_dist.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
 
 
 
