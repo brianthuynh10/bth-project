@@ -79,22 +79,42 @@ frameborder="0"
 
 ### Bivariate Analysis
 
+In this analysis, I wanted to explore the relationship between the Protein (in grams) and Calories. The graphs shows 3000 points from the data, if there more it'd be hard to see a possible relationship. In the scatter plot, there appears to be a pattern where as the amount of protein increases we start to see an increase in the number of calories. We could perhaps use this as varibale in a prediction model!
 
+<iframe
+src='Graphs/cal_pro_scatter.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
 
 
 ### Interesting Aggregates
+
+In this analysis, I did an aggregate of calories/gram of protein and wanted to see its relationship with the number of steps a recipe has. First, I had to remove outliers in the number of steps with the IQR method (some recipes were outrageously long). I grouped by the number of steps each recipe took and did some aggregate to put in a chart and plotted the 
+
 
 
 
 
 ## Assessment of Missingness
-
+In the data there seems to be three columns of interest that have a significant amount of missing values - those columns are `description`, `rating`, and `avg_rating`. In this section, I will investigate the missingness of values in some the columns that contain missing values.
 
 ### NMAR Analysis 
-
+I belive that the missigness of the `rating` column is potentially Missing Not at Random. The reason for this is that perhaps that people perhaps didn't enjoy the recipes as much didn't want to leave a bad rating, and the inverse could be true is that people who did enjoy the recipe would rather leave a rating. This could be the chance as most of the average ratings in the dataset are 3 and up while there aren't many that are rated lower than 2.
 
 ### Missingness Dependency
+Furthering the investigation of missingness, I moved on to examine missingness of `rating` by testing to see if there are any columns that would depend on it. In this part, I checked to see if `rating` column is dependent on the `calories (#)` column, which is the total number of calories in the recipe. First I setup the hypothesis test with following hypotheses: 
+**Null Hypothesis:**  The missigness does not depend on the calories column
+**Altenativate Hypothesis:** The missingness does depend on the calories column
+**Test Statistic** Absolue Difference of Means
 
+<iframe
+src='Graphs/missingnesstest.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
 
 
 ## Hypothesis Testing 
