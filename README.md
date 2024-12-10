@@ -61,8 +61,11 @@ In order to make the data useable, here are the following steps I completed to c
 6. Outlier Removal of Calories and Protein
    - I decided to remove the outliers in the calories and protein columns because they would hinder the visualizations and wouldn't allow me to explore the data as well. This was done by using the IQR method.
   
-7. Changed the Protein to Grams:
-   - This purpose of this transformation will be useful for my investigation. To do this, we first assume that a person is on 2,000 calorie diet, we take the Perent Daily Value of the recipe multiply it by 50 (the suggested ammount of protein for a 2,000 calorie diet) the divide it by 100 to express the current percentage as a fraction. 
+7. Changed the Protein and Total Fat to Grams:
+   - This purpose of this transformation will be useful for my investigation. To do this, we first assume that a person is on 2,000 calorie diet, we take the Perent Daily Value of the recipe multiply it by 50 and 65 for Protein and Total Fat, respecitively, then divide it by 100 to express the current percentage as a fraction.
+  
+8. Added a new column called `high_protein`
+  - The column was created from the tags column which contains a string data type that I utilized to determine if the keyword 'high-protein' was in it. The purpose of this column is supposed to be boolean type with True/False to help to determine if the recipe is 'high-protein' or not. 
   
 
 ### Univariate Analysis
@@ -70,7 +73,7 @@ In order to make the data useable, here are the following steps I completed to c
 In this analysis, I examined the distribution of the protein (in grams) in the recipes. In the plot below, one could determine that the distribution is skewed to the right. This suggests that most recipes on Food.com aren't extremely high in protein. WE could see that as we move more and more to the rigt the prescence of greater protein values is lessens
 
 <iframe
-src='Graphs/protein_dist.html'
+src='Graphs/uni_protein.html'
 width='800'
 height='600'
 frameborder="0"
@@ -91,7 +94,15 @@ frameborder="0"
 
 ### Interesting Aggregates
 
-In this analysis, I did an aggregate of calories/gram of protein and wanted to see its relationship with the number of steps a recipe has. First, I had to remove outliers in the number of steps with the IQR method (some recipes were outrageously long). I grouped by the number of steps each recipe took and did some aggregate to put in a chart and plotted the 
+In this analysis, I grouped by the `high_protein` status and did aggregations like averages for total calores, total fat, total protein, minutes, and saturated fat (PDV). Doing this helped  uncover some patterns that one could possibly expect. 'High protein' recipes actually had higher total fat, calories, and saturated fat (PDV). Recipes that aren't classified as 'high protein' have longer average cooking time and tend to take up of a larger portion of you daily suggested amount of carbohydrates.
+
+| `high_protein` | total fat (grams) | calories (#) | sodium (PDV) | minutes |  saturated fat (PDV) | carbohydrates (PDV)
+|False	         |15.10	           |316.53	     |24.37	       | 101.28	| 29.30	              |10.28
+|True	            |19.19	           |351.64	      |24.74	    |84.47	   |33.47	              |3.55
+ 
+
+
+
 
 
 ## Assessment of Missingness
