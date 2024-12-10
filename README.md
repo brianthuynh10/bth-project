@@ -96,9 +96,10 @@ frameborder="0"
 
 In this analysis, I grouped by the `high_protein` status and did aggregations like averages for total calores, total fat, total protein, minutes, and saturated fat (PDV). Doing this helped  uncover some patterns that one could possibly expect. 'High protein' recipes actually had higher total fat, calories, and saturated fat (PDV). Recipes that aren't classified as 'high protein' have longer average cooking time and tend to take up of a larger portion of you daily suggested amount of carbohydrates.
 
-| `high_protein` | total fat (grams) | calories (#) | sodium (PDV) | minutes |  saturated fat (PDV) | carbohydrates (PDV)
-|False	         |15.10	           |316.53	     |24.37	       | 101.28	| 29.30	              |10.28
-|True	            |19.19	           |351.64	      |24.74	    |84.47	   |33.47	              |3.55
+| `high_protein` | total fat (grams) | calories (#) | sodium (PDV) | minutes |  saturated fat (PDV) | carbohydrates (PDV)|
+|:---------------|:------------------|:-------------|:--------------|:-----------|:-----------------|:------------------|
+|False	         |15.10	           |316.53	     |24.37	       | 101.28	| 29.30	              |10.28              |
+|True	            |19.19	           |351.64	      |24.74	    |84.47	   |33.47	              |3.55               |
  
 
 
