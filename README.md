@@ -65,8 +65,22 @@ In order to make the data useable, here are the following steps I completed to c
    - This purpose of this transformation will be useful for my investigation. To do this, we first assume that a person is on 2,000 calorie diet, we take the Perent Daily Value of the recipe multiply it by 50 and 65 for Protein and Total Fat, respecitively, then divide it by 100 to express the current percentage as a fraction.
   
 8. Added a new column called `high_protein`
-  - The column was created from the tags column which contains a string data type that I utilized to determine if the keyword 'high-protein' was in it. The purpose of this column is supposed to be boolean type with True/False to help to determine if the recipe is 'high-protein' or not. 
-  
+  - The column was created from the tags column which contains a string data type that I utilized to determine if the keyword 'high-protein' was in it. The purpose of this column is supposed to be boolean type with True/False to help to determine if the recipe is 'high-protein' or not.
+
+9. Removal of the Reviews Column
+   - The reviews column doesn't seem relevant to any of the plans I have for this project, so I will be removing it
+
+**Result:** 
+After cleaning the merged dataframe, I am left with 214965 rows and 26 columns. Here are the first couple rows with the columns that you should probably take a look at: 
+
+| Name                             | id  | minutes| rating | avg_rating | calories (#) | protein (grams)| total fat (grams)| high_protein |
+|:---------------------------------|:----|:-------|:-------|:-----------|:-------------|:----------------|:------------------|:-----------|
+|1 brownies in the world best ever |333281|40      | 5.0 | 4.0        | 138.4        | 1.5              | 6.5              | False      |
+|1 in canada chocolate chip cookies|453467|45      | 5.0 | 5.0        | 595.1        | 6.5              | 29.9             | False      |
+|412 broccoli casserole            |306168|40      | 5.0 | 5.0         | 194.8        | 11.0             | 13.0              | False      |
+|412 broccoli casserole            |306168|40      | 5.0 | 5.0         | 194.8        | 11.0             | 13.0              | False      |
+|412 broccoli casserole            |306168|40      | 5.0 | 5.0         | 194.8        | 11.0             | 13.0              | False      |
+
 
 ### Univariate Analysis
 
@@ -116,7 +130,8 @@ I belive that the missigness of the `rating` column is potentially Missing Not a
 Furthering the investigation of missingness, I moved on to examine missingness of `rating` by testing to see if there are any columns that would depend on it. In this part, I checked to see if `rating` column is dependent on the `calories (#)` column, which is the total number of calories in the recipe. First I setup the hypothesis test with following hypotheses: 
 - **Null Hypothesis:**  The missingness does not depend on the calories column
 - **Altenativate Hypothesis:** The missingness does depend on the calories column
-- **Test Statistic** Absolue Difference of Means (Avg Amount of Calories with  `rating` missing - Avg Amount of Calories with  `rating` not missing)
+- **Test Statistic:** Absolue Difference of Means (Avg Amount of Calories with  `rating` missing - Avg Amount of Calories with  `rating` not missing)
+- **Significance Level:** 0.01
 
 <iframe
 src='Graphs/missingness_test_dep.html'
@@ -125,10 +140,13 @@ height='600'
 frameborder="0"
 ></iframe>
 
+**Analysis:** In this test, I created a column in the merged dataset marking if the row's rating was missing, called `missing_rating`, this will create two groups (True/False). Next I calcuated the observed test statistic which was 10.76, and began shuffling the `missing_rating` column then calculating the test statistic of the simulated data. This process was repeated 5,000 times, which created the visualization above. The p-value of this test came out to be 0.0 which is less than 0.01, so **we reject the null hypothesis**. Therefore, the missingness of ratings does depend on the `calories (#)` column.
+
 Again, I'm going perform the same test to as above, except this time I will be testing to see if the missingness of `rating` depends on the `minutes` column. Here are the following hypotheses and test statistics for this test: 
 - **Null Hypothesis:**  The missingness of `rating` does not depend on the `minutes` column
 - **Altenativate Hypothesis:**  The missigness of `rating` does depend on the `minutes` columnn
 - **Test Statistic** Absolue Difference of Means (Avg Amount of Minutes with  `rating` missing - Avg Amount of Minutes with  `rating` not missing)
+- **Significance Level:** 0.01
 
 <iframe
 src='Graphs/missingness_test_independent.html'
@@ -137,8 +155,20 @@ height='600'
 frameborder="0"
 ></iframe>
 
+**Analysis:** In this test, I did the same procedure as above - creating a column called `missing_rating`. The observered test statistic in the dataset is 38.255, and same process of shuffling `missing_rating` labels was done. The p-value of this test came out to be 0.1234 which is greater than the significance level I set, so **we fail to reject the null hypothesis**. Therefore, the missingness of ratings does NOT depend on the time to make/cook the recipe.
+
 
 ## Permutation Testing 
+As sort of the main goal of the investigation, I am curious to see if high protein recipes could be as healthy as those that aren't labeled high protein. In this part, I will be performing a permutation test to help answer that question.
+
+**Null Hypothesis:**  The average total amount of fat in 'high-protein' recipes and ones that aren't are the same and come from teh same distribution. Any observed difference is due to random chance.
+**Alterantive Hypothesis:**The average total amount of for recipes is greater for recipes that are 'high-protein' and ones that aren't. Any observed difference is not due to random chance alone.
+**Test Statistics:** Difference in Group Means (High-Protein Avg Fat - Non-High Protein Avg Fat)  
+**Significance Level:** 0.01
+
+As mentioned, I will be running a permutation test between the two groups. In this test, the value that we'll be looking at is total fat (in grams) because it's a value that people are always mindful of when trying to maintain a healthy lifestyle - heavy consumption fatty foods could lead to long-term health problems! So, total fat (grams) will be the variable of interest. As for the test statistic, I'm using difference of each groups average because the direction of this test matters, meaning that we actually want to see positive values which will capture if high protein recipe have greater average total fat than standard recipes. Using the absolute difference in group means fails to answer the question that I'm posing, the choice of difference in group mean better suits my investigation.
+
+Testing Procedure: I'm utilzing the column `high_protein` again to divide into two different groups then calculating the test statistic, which is 4.09. Next, I'll shuffle the group labels then recalculated the test statistic for each group and do this 1000 times. 
 
 <iframe
 src='Graphs/hypo_test.html'
@@ -148,8 +178,7 @@ frameborder="0"
 ></iframe>
 
 
-
-#### Conclusion of the Permutation Test
+**Analysis of Permutation Test:** After 1000 simluted trials. The p-value that I found was 0.00, which is less than significance level, 0.01. This means we'll **reject the null hypothesis.** We can say that high protein recipes on average have more fat than standard recipes, but we can't be totally sure becasue this is just an observation there could be factors that make the high protein recipes fatter. The cut of meat used can vary such a fatty piece of steak or the cooking methods such as deep-frying could influence the amout of fat in the recipe, we can't exaclty conclude that high protein recipes will have a higher fat content on average.
 
 
 ## Framing Prediction Problem:
