@@ -77,7 +77,6 @@ frameborder="0"
 ></iframe>
 
 
-
 ### Bivariate Analysis
 
 In this analysis, I wanted to explore the relationship between the Protein (in grams) and Calories. The graphs shows 3000 points from the data, if there more it'd be hard to see a possible relationship. In the scatter plot, there appears to be a pattern where as the amount of protein increases we start to see an increase in the number of calories. We could perhaps use this as varibale in a prediction model!
@@ -107,7 +106,6 @@ Furthering the investigation of missingness, I moved on to examine missingness o
 - **Altenativate Hypothesis:** The missingness does depend on the calories column
 - **Test Statistic** Absolue Difference of Means
 
-  
 
 <iframe
 src='Graphs/missingness_test.html'
@@ -127,11 +125,18 @@ frameborder="0"
 #### Conclusion of the Permutation Test
 
 
-## Framing Prediction Problem
+## Framing Prediction Problem:
 
+I plan to predict the number of calories in a recipe using a regression model. The reason for choosing calories as the target variable is that it is a standard value calculated for food products that we consume daily. The total calories in a food item are primarily determined by the amounts of macronutrients such as the amount of fats, protein, and sodium it contains. By utilizing some nutritional information in a recipe, I can estimate its total caloric content.
+To evaluate the performance of the regression model, I will use the R-squared value. R-squared is a common and intuitive metric for measuring how well a regression model fits the data. It shows the proportion of the variance in the target variable (in this case, calories) that is explained by the model. The value of R-squared ranges from 0 to 1, where:
+A value close to 0 indicates that the model does not explain much of the variation in the target variable, meaning the model's predictions are not very accurate.
+A value close to 1 means the model does a great job of explaining the variance in the target variable, suggesting that the predictions are more accurate and reliable.
+Thus, the goal is to achieve an R-squared value as close to 1 as possible, which would indicate that the model is effectively capturing the relationship between the nutritional information of a recipe and its caloric content. This will give me confidence that the model can make accurate predictions based on the given input data.
 
 ## Baseline Model 
-
+In this baseline model, I’ll be using standard linear regression with three feature variables: sodium (PDV), protein (PDV), and tags.
+Sodium and protein are quantitative variables, meaning they are numeric. However, the "tags" variable is categorical, so it requires some preprocessing. To handle this, I’ll check if the tags contain keywords like "healthy" or "low." If they do, I will apply One-Hot Encoding to create binary columns (1 or 0) indicating whether a recipe had the healthy terms like “healthy” or ‘low’. This will allow the model to differentiate between "healthy" and "standard" recipes.
+For the results, the R-squared value on the testing data was 0.40. This suggests that the model explains only 40% of the variance in the calorie data, meaning it’s not performing as well as we’d like. There’s potential to improve the model by adding more relevant features—such as serving size or the types of ingredients—if they are believed to influence the calorie count.
 
 ## Final Model
 
