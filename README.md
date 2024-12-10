@@ -114,10 +114,9 @@ I belive that the missigness of the `rating` column is potentially Missing Not a
 
 ### Missingness Dependency
 Furthering the investigation of missingness, I moved on to examine missingness of `rating` by testing to see if there are any columns that would depend on it. In this part, I checked to see if `rating` column is dependent on the `calories (#)` column, which is the total number of calories in the recipe. First I setup the hypothesis test with following hypotheses: 
-- **Null Hypothesis:**  The missigness does not depend on the calories column
+- **Null Hypothesis:**  The missingness does not depend on the calories column
 - **Altenativate Hypothesis:** The missingness does depend on the calories column
-- **Test Statistic** Absolue Difference of Means
-
+- **Test Statistic** Absolue Difference of Means (Avg Amount of Calories with  `rating` missing - Avg Amount of Calories with  `rating` not missing)
 
 <iframe
 src='Graphs/missingness_test.html'
@@ -125,6 +124,13 @@ width='800'
 height='600'
 frameborder="0"
 ></iframe>
+
+Again, I'm going perform the same test to as above, except this time I will be testing to see if the missingness of `rating` depends on the `minutes` column. Here are the following hypotheses and test statistics for this test: 
+- **Null Hypothesis:**  The missingness of `rating` does not depend on the `minutes` column
+- **Altenativate Hypothesis:**  The missigness of `rating` does depend on the `minutes` columnn
+- **Test Statistic** Absolue Difference of Means (Avg Amount of Minutes with  `rating` missing - Avg Amount of Minutes with  `rating` not missing)
+
+
 
 
 ## Hypothesis Testing 
