@@ -30,11 +30,11 @@ Dataset #1: `recipe` contains 83,782 rows, each of them represetning a unique re
 Dataset #2: `interactions` contains 731,927 rows, each of them being a review and rating for the recipes in the `recipe` dataset, and 5 columns being: 
 | Column            | Description                                                      |
 |:----------------- | :----------------------------------------------------------------|
-| `'user_id'`          | USER ID                                                       |
-| `'recipe_id'`            | Recipe ID                                                 |
-| `'date'`            | Date of interaction                                            |
-| `'rating'`            | Rating given                                                 |
-| `'review'`            | Review Text                                                  |
+| `'user_id'`       | USER ID                                                          |
+| `'recipe_id'`     | Recipe ID                                                        |
+| `'date'`          | Date of interaction                                              |
+| `'rating'`        | Rating given                                                     |
+| `'review'`         | Review Text                                                     |
 
 
 ## Data Cleaning and Exploratory Data Analysis
@@ -117,6 +117,8 @@ frameborder="0"
 
 
 ## Hypothesis Testing 
+
+
 
 
 
