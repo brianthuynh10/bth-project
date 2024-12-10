@@ -1,4 +1,4 @@
-# Investigating Proteins and their Relationship with Ratings and Calories
+# Investigation of "High-Protein" Recipes and their healthiness
 
 Author: Brian Huynh 
 
@@ -119,7 +119,7 @@ Furthering the investigation of missingness, I moved on to examine missingness o
 - **Test Statistic** Absolue Difference of Means (Avg Amount of Calories with  `rating` missing - Avg Amount of Calories with  `rating` not missing)
 
 <iframe
-src='Graphs/missingness_test.html'
+src='Graphs/missingness_test_ind.html'
 width='800'
 height='600'
 frameborder="0"
@@ -130,7 +130,12 @@ Again, I'm going perform the same test to as above, except this time I will be t
 - **Altenativate Hypothesis:**  The missigness of `rating` does depend on the `minutes` columnn
 - **Test Statistic** Absolue Difference of Means (Avg Amount of Minutes with  `rating` missing - Avg Amount of Minutes with  `rating` not missing)
 
-
+<iframe
+src='Graphs/missingness_test_dep.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
 
 
 ## Hypothesis Testing 
