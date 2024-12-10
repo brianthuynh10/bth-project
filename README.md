@@ -94,9 +94,6 @@ frameborder="0"
 In this analysis, I did an aggregate of calories/gram of protein and wanted to see its relationship with the number of steps a recipe has. First, I had to remove outliers in the number of steps with the IQR method (some recipes were outrageously long). I grouped by the number of steps each recipe took and did some aggregate to put in a chart and plotted the 
 
 
-
-
-
 ## Assessment of Missingness
 In the data there seems to be three columns of interest that have a significant amount of missing values - those columns are `description`, `rating`, and `avg_rating`. In this section, I will investigate the missingness of values in some the columns that contain missing values.
 
@@ -105,9 +102,11 @@ I belive that the missigness of the `rating` column is potentially Missing Not a
 
 ### Missingness Dependency
 Furthering the investigation of missingness, I moved on to examine missingness of `rating` by testing to see if there are any columns that would depend on it. In this part, I checked to see if `rating` column is dependent on the `calories (#)` column, which is the total number of calories in the recipe. First I setup the hypothesis test with following hypotheses: 
-**Null Hypothesis:**  The missigness does not depend on the calories column
-**Altenativate Hypothesis:** The missingness does depend on the calories column
-**Test Statistic** Absolue Difference of Means
+- **Null Hypothesis:**  The missigness does not depend on the calories column
+- **Altenativate Hypothesis:** The missingness does depend on the calories column
+- **Test Statistic** Absolue Difference of Means
+
+  
 
 <iframe
 src='Graphs/missingness_test.html'
@@ -118,6 +117,8 @@ frameborder="0"
 
 
 ## Hypothesis Testing 
+
+
 
 
 #### Conclusion of the Permutation Test
