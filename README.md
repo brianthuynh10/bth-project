@@ -199,6 +199,13 @@ The model achieved a R-Squared value of 0.73 on the testing data, meaning it exp
 ## Final Model: 
 
 ## Fairness Analysis:
+To evaluate the fairness of my model, I investigated potential bias in predictions based on recipe submission dates. Recipes were split into two groups: Older (submitted in 2013 or earlier) and Newer (submitted in 2014 or later), with 2013 as the cutoff since it is the median submission year. I assessed fairness using the Root Mean Squared Error (RMSE) as the metric, where lower RMSE indicates better model performance. For example, an RMSE of 200 implies that predictions, on average, deviate by 200 calories from the actual values.
+
+**Null Hypothesis:** The model is fair; any difference in RMSE between the two groups is due to random chance.
+**Alternative Hypothesis:** The model is unfair; it predicts calories more accurately for newer recipes than for older recipes.
+**Test Statistic:** Difference in RMSE between the two groups.
+**Significance Level:** 0.05
+
 
 <iframe
 src='Graphs/fairness_test.html'
@@ -206,6 +213,11 @@ width='800'
 height='600'
 frameborder="0"
 ></iframe>
+
+
+**Analysis:** I added a relevance column to label recipes as "newer" or "older" and calculated the observed test statistic by grouping recipes by relevance and finding each group's RMSE using my model's predictions. I then performed 5,000 permutations by shuffling the relevance labels and recalculating the RMSE difference for each shuffle. This allowed me to construct a distribution of the test statistic under the null hypothesis.
+
+The observed p-value was 0.02, which is below the significance level of 0.05. This means I **reject the null hypothesis**, concluding that my model predicts calories for newer recipes more accurately than for older recipes. This suggests a potential bias in my model's performance.
 
 
 
