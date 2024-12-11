@@ -200,6 +200,13 @@ The model achieved a R-Squared value of 0.73 on the testing data, meaning it exp
 
 ## Fairness Analysis:
 
+<iframe
+src='Graphs/fairness_test.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
+
 
 
 
