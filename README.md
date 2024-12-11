@@ -198,7 +198,9 @@ The model achieved a R-Squared value of 0.73 on the testing data, meaning it exp
 
 ## Final Model: 
 
-## Fairness Analysis
+## Fairness Analysis:
+
+
 
 
 
