@@ -180,7 +180,7 @@ frameborder="0"
 
 ## Framing Prediction Problem:
 
-I plan to predict the number of calories in a recipe using a regression model. The reason for choosing calories as the target variable is that it is a standard value calculated for food products that we consume daily. The total calories in a food item are primarily determined by the amounts of macronutrients such as the amount of fats, protein, and sodium it contains. By utilizing some nutritional information in a recipe, I can estimate its total caloric content.
+I plan to predict the number of calories in a recipe using a regression model. The reason for choosing calories as the target variable is that it is a standard value calculated for food products that we consume daily. The total calories in a food item are primarily determined by the amounts of macronutrients such as the amount of fats, protein, and sodium it contains. By utilizing some nutritional information in a recipe, I can estimate its total caloric content. Using a regression m
 
 To evaluate the performance of the regression model, I will use the R-squared value. R-squared is a common and intuitive metric for measuring how well a regression model fits the data. It shows the proportion of the variance in the target variable (in this case, calories) that is explained by the model. The value of R-squared ranges from 0 to 1, where:
 - A value close to 0 indicates that the model does not explain much of the variation in the target variable, meaning the model's predictions are not very accurate.
@@ -200,7 +200,7 @@ height='600'
 frameborder="0"
 ></iframe>
 
-Above is a residual plot that helps show how well a prediction model is performing. It shows for each y-value, how far away the prediction was from it using the formula, residual = obeserved_value - predicted_value. Typically, patterns in the graph shouldn't be present otherwise it might mean that the model fails to capture the true relationship. In this case, there is a slight pattern in the beginning with there being a curve, so we should rethink doing linear regression, maybe using higher degree polynomials will be better for our prediction.
+Above is a residual plot that show how well regression model fits the data. It shows for each y-value, how far away the prediction was from it using the formula, residual = obeserved_value - predicted_value. Typically, patterns in the graph shouldn't be present otherwise it might mean that the model fails to capture the true relationship. In this case, there is an obvious pattern in the beginning with points forming a downward slope, so we should rethink doing linear regression, maybe using higher degree polynomials will be better for our prediction.
 
 ## Final Model: 
 For my final model, I incorporated additional features that I believe enhance the predictive accuracy: tags, high_protein, protein (grams), carbohydrates (PDV), and total fat (grams). Below is my rationale for selecting these features and the transformations applied:
