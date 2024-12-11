@@ -2,11 +2,13 @@
 
 Author: Brian Huynh 
 
-## Overview 
+## Introduction
 
-In this project, I am investigating proteins in the dataset and their possible relationships with ratings and the calories. In addition, I create a prediction model that is able to predict the number of calories in a recipe from nutritional factors such as sodium, fat, and protein
+In this project, the dataset(s) that I will be investigating are recipes and reviews from Food.com, which is a website that has a collection of recipes from home cooks, line chefs, and top chefs in the world. Food.com brings chefs of all skills together allowing them to rate each others' recipes, leave reviews, and ask each other questions. The recipes on Food.com range from many difficulties and each recipe has unique tag identifiers, for instance, 'high-protein' or 'beginner' - there's bound to be a recipe for everyone! 
 
-## Introduction 
+The data that I'll be working with are the recipes and reviews from the website since 2008. It has recipe names, unique recipe IDs, contributors, nutrition info, ingredients, and the steps to make the recipe. In addition, there are reviews in a separate dataset that share the same recipe ID, meaning you can look at the ID to see which recipe the review is on. 
+
+For my investigation, into the Food.com datasets reviews and recipes, I want to look into the "high-protein" recipes and see how healthy they are by looking at their association with other nutritional information such as total fat and calories. People are always endorsing high-protein recipes because of their benefits on muscle growth, weight loss, and bone health. However, there is still other nutrient information that people need to be cautious of such as calories, total fat, and carbohydrates. Excessive consumption of those nutrients can lead to weight gain, especially for fats where all fats are 9 calories per gram. The purpose of this investigation is to help one think twice about those high-protein recipes claiming they're good for you. Specific values that I will be utilizing for my investigation are the majority of the nutrition information (calories, protein, total fat, carbohydrates, etc.) and utilizing the tags to find the 'high protein' recipes.
 
 
 Dataset #1: `recipe` contains 83,782 rows, each of them represetning a unique recipe, and 12 columns with the following information: 
@@ -196,6 +198,15 @@ In this baseline model, I will use standard linear regression with three feature
 ### Results of Baseline Model:
 The model achieved a R-Squared value of 0.73 on the testing data, meaning it explains 73% of the variance in the calorie count. While this indicates a moderate fit, there is room for improvement. I belive that this model isn't the best it could be becauase there could be more variables that could influence the amount of calories in a recipe such as carbohydrates, sodium, and saturated fat. Another possible column we could investigate is the tags column which has tags like 'low-calorie' which could influence the prediction my model makes. Ovearll, with the little features in the linear regression model, it does an okay job. A possible idea for the final model is trying polynomial regression to see if there is realtationship between the features and calories that I overlooked.
 
+<iframe
+src='Graphs/base_model_resid.html'
+width='800'
+height='600'
+frameborder="0"
+></iframe>
+
+Above is a residual plot that helps show how well a prediction model is performing. It shows for each y-value, how far away the prediction was from it using the formula, residual = obeserved_value - predicted_value. Typically, patterns in the graph shouldn't be present otherwise it might mean that the data is not linear. In this case, there is a slight pattern in the beginning with a curve, so we should retink about doing linear regression, maybe using higher degree polynomials will be better for our prediction.
+
 ## Final Model: 
 For my final model, I incorporated additional features that I believe enhance the predictive accuracy: tags, high_protein, protein (grams), carbohydrates (PDV), and total fat (grams). Below is my rationale for selecting these features and the transformations applied:
 
@@ -215,7 +226,6 @@ Carbohydrates are strongly linked to caloric content, making this column a valua
 Fat is a major contributor to calorie content, making this feature a clear inclusion. As the distribution was similarly skewed, I applied a quantile transformation for normalization, consistent with the approach for protein (grams).
 
 For the final model, I used LinearRegression as the prediction algorithm and performed hyperparameter tuning with GridSearchCV. I tested polynomial degrees (1–10) and assessed whether to include an intercept term. The optimal configuration was a degree-7 polynomial including the intercept term. The final model achieved an R-squared value of 0.98, a significant improvement over the baseline model. This indicates that the model explains 98% of the variance in the calorie data, demonstrating excellent predictive accuracy.
-
 
 
 ## Fairness Analysis:
