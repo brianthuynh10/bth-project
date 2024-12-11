@@ -71,7 +71,7 @@ In order to make the data useable, here are the following steps I completed to c
    - The reviews column doesn't seem relevant to any of the plans I have for this project, so I will be removing it
 
 **Result:** 
-After cleaning the merged dataframe, I am left with 214965 rows and 26 columns. Here are the first couple rows with the columns that you should probably take a look at: 
+After cleaning the merged dataframe, I am left with 214965 rows and 26 columns. Here are the first couple rows with some columns that are relevant to the cleaning we did (there are still other rows): 
 
 | Name                             | id  | minutes| rating | avg_rating | calories (#) | protein (grams)| total fat (grams)| high_protein |
 |:---------------------------------|:----|:-------|:-------|:-----------|:-------------|:----------------|:------------------|:-----------|
@@ -197,15 +197,34 @@ In this baseline model, I will use standard linear regression with three feature
 The model achieved a R-Squared value of 0.73 on the testing data, meaning it explains 73% of the variance in the calorie count. While this indicates a moderate fit, there is room for improvement. I belive that this model isn't the best it could be becauase there could be more variables that could influence the amount of calories in a recipe such as carbohydrates, sodium, and saturated fat. Another possible column we could investigate is the tags column which has tags like 'low-calorie' which could influence the prediction my model makes. Ovearll, with the little features in the linear regression model, it does an okay job. A possible idea for the final model is trying polynomial regression to see if there is realtationship between the features and calories that I overlooked.
 
 ## Final Model: 
+For my final model, I incorporated additional features that I believe enhance the predictive accuracy: tags, high_protein, protein (grams), carbohydrates (PDV), and total fat (grams). Below is my rationale for selecting these features and the transformations applied:
+
+`tags`: 
+This text-based column contains descriptive tags for each recipe, including terms like "healthy" or "low," which likely correlate with caloric values. To utilize this, I created a lambda function to detect these keywords and categorized the recipes into two groups (True/False). I then applied One-Hot Encoding to convert these groups into numerical values, similar to the treatment of high_protein.
+
+`high_protein`:
+This feature has been integral throughout the project. A prior permutation test revealed that high-protein recipes tend to have higher average total fat, making it a logical choice to include. As with tags, One-Hot Encoding was used.
+
+`protein (grams)`:
+A scatter plot analysis demonstrated a clear positive relationship between protein content and caloric values, indicating its predictive importance. However, the histogram of this column showed right-skewed data. To address this, I applied a quantile transformation to normalize the distribution and improve model performance.
+
+`carbohydrates (PDV)`:
+Carbohydrates are strongly linked to caloric content, making this column a valuable feature. I standardized this column using a Standard Scaler to ensure compatibility with polynomial regression, which performs well with scaled data.
+
+`total fat (grams)`:
+Fat is a major contributor to calorie content, making this feature a clear inclusion. As the distribution was similarly skewed, I applied a quantile transformation for normalization, consistent with the approach for protein (grams).
+
+For the final model, I used LinearRegression as the prediction algorithm and performed hyperparameter tuning with GridSearchCV. I tested polynomial degrees (1–10) and assessed whether to include an intercept term. The optimal configuration was a degree-7 polynomial including the intercept term. The final model achieved an R-squared value of 0.98, a significant improvement over the baseline model. This indicates that the model explains 98% of the variance in the calorie data, demonstrating excellent predictive accuracy.
+
+
 
 ## Fairness Analysis:
-To evaluate the fairness of my model, I investigated potential bias in predictions based on recipe submission dates. Recipes were split into two groups: Older (submitted in 2013 or earlier) and Newer (submitted in 2014 or later), with 2013 as the cutoff since it is the median submission year. I assessed fairness using the Root Mean Squared Error (RMSE) as the metric, where lower RMSE indicates better model performance. For example, an RMSE of 200 implies that predictions, on average, deviate by 200 calories from the actual values.
+To evaluate the fairness of my model, I investigated potential bias in predictions based on recipe submission dates. Recipes were split into two groups: Older (submitted in 2013 or earlier) and Newer (submitted in 2014 or later), with 2013 as the cutoff since it is the median submission year. I assessed fairness using the Root Mean Squared Error (RMSE) as the metric, where lower RMSE indicates better model performance. For example, an RMSE of 200 implies that predictions, on average, deviate by 200 calories from the actual values
 
 **Null Hypothesis:** The model is fair; any difference in RMSE between the two groups is due to random chance.
 **Alternative Hypothesis:** The model is unfair; it predicts calories more accurately for newer recipes than for older recipes.
 **Test Statistic:** Difference in RMSE between the two groups.
 **Significance Level:** 0.05
-
 
 <iframe
 src='Graphs/fairness_test.html'
@@ -214,17 +233,6 @@ height='600'
 frameborder="0"
 ></iframe>
 
+**Analysis:** I added a relevance column to label recipes as "newer" or "older" and calculated the observed test statistic by grouping recipes by relevance and finding each group's RMSE using my model's predictions. I then performed 5,000 permutations by shuffling the relevance labels and recalculating the RMSE difference for each shuffle. This allowed me to construct a distribution of the test statistic under the null hypothesis. The observed test statistic is 4.110.
 
-**Analysis:** I added a relevance column to label recipes as "newer" or "older" and calculated the observed test statistic by grouping recipes by relevance and finding each group's RMSE using my model's predictions. I then performed 5,000 permutations by shuffling the relevance labels and recalculating the RMSE difference for each shuffle. This allowed me to construct a distribution of the test statistic under the null hypothesis.
-
-The observed p-value was 0.02, which is below the significance level of 0.05. This means I **reject the null hypothesis**, concluding that my model predicts calories for newer recipes more accurately than for older recipes. This suggests a potential bias in my model's performance.
-
-
-
-
-
-
-
-
-
-
+The p-value of this test was 0.02, which is below the significance level of 0.05. This means I **reject the null hypothesis**, concluding that my model predicts calories for newer recipes more accurately than for older recipes. This suggests a potential bias in my model's performance.
